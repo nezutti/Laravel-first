@@ -6,12 +6,21 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-   public function index()
+  public function index(Request $request)
     {
-        $item=["content"=>"本文",
-        
+      return view("index",["txt"=>"フォームを入力"]);}
+
+  public function post(Request $request){
+    $validate_rule=[
+      "name"=>"required",
+      "role"=>"required",
+       'email' => 'required|email',
+       'age' => 'numeric',
+       'registered_at' => 'date|nullable',
     ];
-        return view("index",$item);
-    }
-};
+    $this->vailidate($request,$validate_rule);
+    return view("index",["txt"=>"正しい入力です"]);
+  }
+
+}
 
